@@ -5,7 +5,7 @@ const Role = connection.define(
 	{
 		...commonFields,
 		label: {
-			type: DataType.STRING,
+			type: DataTypes.STRING,
 			allowNull: false,
 		},
 	},

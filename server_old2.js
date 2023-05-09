@@ -10,9 +10,23 @@ const { logRequest, ignoreFavicon } = require("./middleware/middleware");
 app.use(logRequest);
 app.use(ignoreFavicon);
 
-const Db = require("./api/models/dataBase");
-Db.synchronize();
-console.log("Liste des modèles : ", Db.getModel());
+const myConfig = require("./api/config");
+const Sequelize = require("sequelize");
+const { host, port, database, user, password } = myConfig.db;
+const sequelize = new Sequelize(database, user, password, {
+	host,
+	port,
+	dialect: "mysql",
+});
+
+sequelize
+	.authenticate()
+	.then(() => {
+		console.log(`Connexion réussi sur le port : ${port}`);
+	})
+	.catch((error) => {
+		console.error("Connexion échoué", error);
+	});
 
 // Définir une route qui répond à toutes les requêtes HTTP avec le code 200 et le message "OK"
 app.get("*", (req, res) => {

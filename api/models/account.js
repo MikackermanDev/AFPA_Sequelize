@@ -18,3 +18,5 @@ const Account = connection.define(
 		paranoid: true,
 	}
 );
+
+module.exports = Account;
