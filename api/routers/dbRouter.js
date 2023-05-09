@@ -22,7 +22,7 @@ dbRouter.get("/:table", async (req, res) => {
 dbRouter.get("/:table/:id", async (req, res) => {
 	const { table, id } = req.params;
 	const modelName = table.charAt(0).toUpperCase() + table.slice(1);
-	const resp = await db.selectAll(modelName);
+	const resp = await db.selectOne(modelName);
 	res.status(resp?.result ? 200 : 400).json(resp);
 });
 
@@ -37,14 +37,14 @@ dbRouter.put("/:table", async (req, res) => {
 	const { table } = req.params;
 	const modelName = table.charAt(0).toUpperCase() + table.slice(1);
 	const { body } = req.body;
-	const resp = await db.selectWhere(modelName, body);
+	const resp = await db.insertOrUpdate(modelName, body);
 	res.status(resp?.result ? 200 : 400).json(resp);
 });
 
 dbRouter.patch("/:table/:id", async (req, res) => {
 	const { table, id } = req.params;
 	const modelName = table.charAt(0).toUpperCase() + table.slice(1);
-	const resp = await db.selectAll(modelName);
+	const resp = await db.deleteOne(modelName);
 	res.status(resp?.result ? 200 : 400).json(resp);
 });
 
