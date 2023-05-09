@@ -20,13 +20,8 @@ Db.synchronize();
 // Afficher dans la console la liste des modèles disponibles
 console.log("Liste des modèles : ", Db.getModel());
 
-// Définir une route qui répond à toutes les requêtes HTTP avec le code 200 et le message "OK"
-// Une route est une fonction qui associe une URL et une méthode HTTP à une action à effectuer
-app.get("*", (req, res) => {
-	// Envoyer une réponse au client avec le code 200 (succès) et le message "OK" au format JSON
-	res.status(200).json("OK");
-});
-
+const dbRouter = require("./api/routers/dbRouter");
+app.use(dbRouter);
 // Définir le port d'écoute du serveur
 const PORT = 8080;
 // Lancer le serveur et afficher un message dans la console
